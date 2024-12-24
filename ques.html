@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>答题获取金幣</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .message {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #fff;
+            padding: 10px;
+        }
+        .correct {
+            background-color: green;
+        }
+        .wrong {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>答题赚金幣</h1>
+        <div id="question-container" class="question">
+            <p>第 1 題: 2 + 2 等于多少？</p>
+            <div>
+                <p><button class="button" onclick="checkAnswer(4)">四</button></p>
+                <p><button class="button" onclick="checkAnswer(5)">五</button></p>
+                <p><button class="button" onclick="checkAnswer(3)">三</button></p>
+                <p><button class="button" onclick="checkAnswer(6)">六</button></p>
+            </div>
+        </div>
+        <div id="message-container" class="message" style="display: none;"></div>
+        <div id="score-container" class="question" style="display:none;">
+            <p>你的金幣數量: <span id="coin-count">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let correctAnswers = 0;
+        let currentQuestion = 1;
+        let totalCoins = 0;
+
+        // 檢查答案
+        function checkAnswer(answer) {
+            const correctAnswer = currentQuestion === 1 ? 4 : currentQuestion === 2 ? 9 : 6;
+            const messageContainer = document.getElementById('message-container');
+            
+            if (answer === correctAnswer) {
+                totalCoins++;
+                messageContainer.innerText = '答對了！';
+                messageContainer.className = 'message correct';
+            } else {
+                messageContainer.innerText = '答錯了！';
+                messageContainer.className = 'message wrong';
+            }
+
+            // 顯示答題結果
+            messageContainer.style.display = 'block';
+            document.getElementById('coin-count').innerText = totalCoins;
+			
+			setTimeout(() => {
+                messageContainer.style.display = 'none';
+            }, 1000);
+
+            // 顯示金幣數量
+            if (currentQuestion < 3) {
+                currentQuestion++;
+                setTimeout(updateQuestion, 1000); // 1秒後更新問題
+            } else {
+                // 全部問題完成，跳轉到 game.html
+                setTimeout(() => {
+                    window.location.href = `game.html?coins=${totalCoins}`;
+                }, 1000);
+            }
+        }
+
+        // 更新題目
+        function updateQuestion() {
+            let questionText = '';
+            let answers = [];
+            if (currentQuestion === 2) {
+                questionText = '第 2 題: 3 + 6 等於多少？';
+                answers = [9, 10, 8, 7];
+            } else if (currentQuestion === 3) {
+                questionText = '第 3 題: 1 + 5 等於多少？';
+                answers = [6, 7, 5, 8];
+            }
+
+            // 更新题目内容和按钮
+            document.getElementById('question-container').innerHTML = `
+                <p>${questionText}</p>
+                <div>
+                    <p><button class="button" onclick="checkAnswer(${answers[0]})">${answers[0]}</button></p>
+                    <p><button class="button" onclick="checkAnswer(${answers[1]})">${answers[1]}</button></p>
+                    <p><button class="button" onclick="checkAnswer(${answers[2]})">${answers[2]}</button></p>
+                    <p><button class="button" onclick="checkAnswer(${answers[3]})">${answers[3]}</button></p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
