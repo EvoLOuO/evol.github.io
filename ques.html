@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>答题获取金幣</title>
+    <title>クリスマスプレゼント</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,19 +38,24 @@
 </head>
 <body>
     <div id="quiz-container">
-        <h1>答题赚金幣</h1>
+        <h1>クリスマスプレゼント</h1>
         <div id="question-container" class="question">
-            <p>第 1 題: 2 + 2 等于多少？</p>
+            <p>Q1: あなたはレースに出場し、2位の選手を追い越して何位になったの？</p>
             <div>
-                <p><button class="button" onclick="checkAnswer(4)">四</button></p>
-                <p><button class="button" onclick="checkAnswer(5)">五</button></p>
-                <p><button class="button" onclick="checkAnswer(3)">三</button></p>
-                <p><button class="button" onclick="checkAnswer(6)">六</button></p>
+                <!---<p><button class="button" onclick="checkAnswer(4)">1</button></p>
+                <p><button class="button" onclick="checkAnswer(5)">2</button></p>
+                <p><button class="button" onclick="checkAnswer(3)">3</button></p>
+                <p><button class="button" onclick="checkAnswer(6)">4</button></p> -->
+				
+				<p><button class="button" onclick="checkAnswer('1')">1</button></p>
+                <p><button class="button" onclick="checkAnswer('2')">2</button></p>
+                <p><button class="button" onclick="checkAnswer('3')">3</button></p>
+                <p><button class="button" onclick="checkAnswer('4')">4</button></p>
             </div>
         </div>
         <div id="message-container" class="message" style="display: none;"></div>
         <div id="score-container" class="question" style="display:none;">
-            <p>你的金幣數量: <span id="coin-count">0</span></p>
+            <p>コイン数： <span id="coin-count">0</span></p>
         </div>
     </div>
 
@@ -61,15 +66,15 @@
 
         // 檢查答案
         function checkAnswer(answer) {
-            const correctAnswer = currentQuestion === 1 ? 4 : currentQuestion === 2 ? 9 : 6;
+            const correctAnswer = currentQuestion === 1 ? '2' : currentQuestion === 2 ? 'メリー' : '川北さん';
             const messageContainer = document.getElementById('message-container');
             
             if (answer === correctAnswer) {
                 totalCoins++;
-                messageContainer.innerText = '答對了！';
+                messageContainer.innerText = '正解！';
                 messageContainer.className = 'message correct';
             } else {
-                messageContainer.innerText = '答錯了！';
+                messageContainer.innerText = '不正解！';
                 messageContainer.className = 'message wrong';
             }
 
@@ -98,21 +103,21 @@
             let questionText = '';
             let answers = [];
             if (currentQuestion === 2) {
-                questionText = '第 2 題: 3 + 6 等於多少？';
-                answers = [9, 10, 8, 7];
+                questionText = 'Q2: メリーの父は5人の娘を持つ：1.ナナ、2.ニニ、3.ヌヌ、4.ネネ。5番目の娘の名前は？';
+                answers = ['のの', 'メリー', 'ささ', 'みみ'];
             } else if (currentQuestion === 3) {
-                questionText = '第 3 題: 1 + 5 等於多少？';
-                answers = [6, 7, 5, 8];
+                questionText = 'Q3: FPSがうまくて、かわいいくて、いい声の人は誰だ？';
+                answers = ['新垣結衣', '小松菜奈', '川北さん', '浜辺美波'];
             }
 
             // 更新题目内容和按钮
             document.getElementById('question-container').innerHTML = `
                 <p>${questionText}</p>
                 <div>
-                    <p><button class="button" onclick="checkAnswer(${answers[0]})">${answers[0]}</button></p>
-                    <p><button class="button" onclick="checkAnswer(${answers[1]})">${answers[1]}</button></p>
-                    <p><button class="button" onclick="checkAnswer(${answers[2]})">${answers[2]}</button></p>
-                    <p><button class="button" onclick="checkAnswer(${answers[3]})">${answers[3]}</button></p>
+                    <p><button class="button" onclick="checkAnswer('${answers[0]}')">${answers[0]}</button></p>
+                    <p><button class="button" onclick="checkAnswer('${answers[1]}')">${answers[1]}</button></p>
+                    <p><button class="button" onclick="checkAnswer('${answers[2]}')">${answers[2]}</button></p>
+                    <p><button class="button" onclick="checkAnswer('${answers[3]}')">${answers[3]}</button></p>
                 </div>
             `;
         }
