@@ -74,7 +74,7 @@
 }
 
 #play-again {
-	margin-top: 350px;
+    margin-top: 400px;
     opacity: 0;
     transition: opacity 1s;
     background-color: white; /* If you want to make the play again button a different colour*/
